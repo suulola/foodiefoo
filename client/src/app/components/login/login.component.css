@@ -1,0 +1,30 @@
+.menu {
+  max-width: 200px;
+    width: 100%;
+}
+
+#login {
+/* not the best practice */
+   height: 91%;
+
+   /* background: url("https://images.unsplash.com/photo-1571942389648-078c07e6a28f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60") no-repeat; */
+   background: url("https://viewpointluxurykaruabuja.com.ng/wp-content/uploads/2019/03/bbv.jpg") no-repeat;
+   background-size: cover;
+   background-position: center;
+}
+
+.login-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .input_field {
+    width: 100%;
+  }
+  
+  .row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }

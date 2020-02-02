@@ -1,0 +1,14 @@
+{
+  "name": "foodapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "angular": "cd client && ng serve -o",
+    "spring": "cd server && mvnw spring-boot:run",
+    "start": "npm run spring && npm run angular"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
