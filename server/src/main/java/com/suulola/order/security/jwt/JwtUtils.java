@@ -1,14 +1,21 @@
 package com.suulola.order.security.jwt;
 
-import com.suulola.order.security.services.UserDetailsImpl;
+import com.suulola.order.model.Role;
+import com.suulola.order.service.UserService;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Base64;
 import java.util.Date;
+import java.util.Set;
 
 @Component
 public class JwtUtils {
@@ -22,25 +29,68 @@ public class JwtUtils {
     @Value("${jwt.secret}")
     private String jwtSecret;
 
-    @Value("${jwt.expiration}")
-    private int jwtExpirationMs;
+    @Value("${jwt.expiration}") // 1 hour
+    private int jwtExpirationMs = 3600000;
 
-    public String generateJwtToken(Authentication authentication) {
-        UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
+    @Autowired
+    private UserService userService;
+
+    protected void init() {
+        jwtSecret = Base64.getEncoder().encodeToString(jwtSecret.getBytes());
+    }
+
+    public String createToken(String username, Set<Role> set) {
+        Claims claims = Jwts.claims().setSubject(username);
+        claims.put("roles", set);
+        Date now = new Date();
+        Date validity = new Date(now.getTime() + jwtExpirationMs);
         return Jwts.builder()
-                .setSubject(userPrincipal.getPassword())
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(new Date().getTime() + jwtExpirationMs))
-                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .setClaims(claims)
+                .setIssuedAt(now)
+                .setExpiration(validity)
+                .signWith(SignatureAlgorithm.HS256, jwtSecret)
                 .compact();
     }
 
-    public String getUserNameFromJwtToken(String token) {
+//    public String generateJwtToken(Authentication authentication) {
+//        UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
+//        return Jwts.builder()
+//                .setSubject(userPrincipal.getPassword())
+//                .setIssuedAt(new Date())
+//                .setExpiration(new Date(new Date().getTime() + jwtExpirationMs))
+//                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+//                .compact();
+//    }
+
+//    public String getUserNameFromJwtToken(String token) {
+//        return Jwts.parser()
+//                .setSigningKey(jwtSecret)
+//                .parseClaimsJws(token)
+//                .getBody()
+//                .getSubject();
+//    }
+
+    public Authentication getAuthentication(String token) {
+        UserDetails userDetails = this.userService.loadUserByUsername(getUsername(token));
+
+        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+    }
+
+    public String getUsername(String token) {
         return Jwts.parser()
                 .setSigningKey(jwtSecret)
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
+    }
+
+    public String resolveToken(HttpServletRequest request)
+    {
+        String bearerToken = request.getHeader("Authorization");
+        if(bearerToken != null && bearerToken.startsWith("Bearer ")) {
+            return bearerToken.substring(7, bearerToken.length());
+        }
+        return null;
     }
 
 
@@ -68,6 +118,8 @@ public class JwtUtils {
         }
         return false;
     }
+
+
 
 
 

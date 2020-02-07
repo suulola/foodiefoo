@@ -1,17 +1,26 @@
 package com.suulola.order.model;
 
+import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
+@Entity
+@Table(name = "users")
 public class User {
 
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private String username;
     private String password;
     private String email;
 
+    @OneToMany
     private List<Order> orders;
+
+    @OneToMany
     private Set<Role> roles;
 
     public Long getId() {

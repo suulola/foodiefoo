@@ -1,23 +1,18 @@
 package com.suulola.order.controller;
 
 import com.suulola.order.model.Order;
-import com.suulola.order.repo.OrderRepoImpl;
+import com.suulola.order.repo.OrderRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/v1/order")
+@RequestMapping(value = "/orders")
 public class OrderController {
 
-    private OrderRepoImpl orderRepo;
-
     @Autowired
-    public OrderController(OrderRepoImpl orderRepo) {
-        this.orderRepo = orderRepo;
-    }
+    private OrderRepo orderRepo;
 
 
 
@@ -28,6 +23,9 @@ public class OrderController {
 
     @RequestMapping(value = "/userid/{id}", method = RequestMethod.GET)
     public List<Order> getOrdersByUser(@PathVariable("id") Long id) {
-        return orderRepo.findByUserID(id);
+        return orderRepo.findByUserId(id);
     }
+
+
+
 }

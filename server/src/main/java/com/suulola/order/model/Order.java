@@ -1,55 +1,61 @@
 package com.suulola.order.model;
 
 
-import java.util.Set;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "orders")
 public class Order {
 
-    private Long id;
-    private String foodContent;
-    private String orderDate;
-    private Boolean isFoodServed;
-    private Long userId;
 
-//    private Set<User> users;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+   private Long id;
 
-    public Long getId() {
-        return id;
-    }
+   private String foodContent;
+   private String orderDate;
+   private Boolean isFoodServed;
+   private Long userId;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+   public Long getId() {
+       return id;
+   }
 
-    public String getFoodContent() {
-        return foodContent;
-    }
+   public void setId(Long id) {
+       this.id = id;
+   }
 
-    public void setFoodContent(String foodContent) {
-        this.foodContent = foodContent;
-    }
+   public String getFoodContent() {
+       return foodContent;
+   }
 
-    public String getOrderDate() {
-        return orderDate;
-    }
+   public void setFoodContent(String foodContent) {
+       this.foodContent = foodContent;
+   }
 
-    public void setOrderDate(String orderDate) {
-        this.orderDate = orderDate;
-    }
+   public String getOrderDate() {
+       return orderDate;
+   }
 
-    public Boolean getFoodServed() {
-        return isFoodServed;
-    }
+   public void setOrderDate(String orderDate) {
+       this.orderDate = orderDate;
+   }
 
-    public void setFoodServed(Boolean foodServed) {
-        isFoodServed = foodServed;
-    }
+   public Boolean getFoodServed() {
+       return isFoodServed;
+   }
 
-    public Long getUserId() {
-        return userId;
-    }
+   public void setFoodServed(Boolean foodServed) {
+       isFoodServed = foodServed;
+   }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
+   public Long getUserId() {
+       return userId;
+   }
+
+   public void setUserId(Long userId) {
+       this.userId = userId;
+   }
+
+
 }

@@ -1,18 +1,21 @@
 package com.suulola.order.model;
 
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "roles")
+
 public class Role {
 
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private  Long id;
-    private ERole name;
-//    private Set<User> users;
 
-    public Role() {
-        // empty constructor
-    }
+    private String role;
 
-    public Role(ERole name) {
-        this.name = name;
-    }
+
 
     public Long getId() {
         return id;
@@ -22,11 +25,11 @@ public class Role {
         this.id = id;
     }
 
-    public ERole getName() {
-        return name;
+    public String getRole() {
+        return role;
     }
 
-    public void setName(ERole name) {
-        this.name = name;
+    public void setRole(String role) {
+        this.role = role;
     }
 }
