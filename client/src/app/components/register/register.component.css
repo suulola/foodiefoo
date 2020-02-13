@@ -1,6 +1,16 @@
 #register {
     height: 91%;
-    background: url("https://media.tacdn.com/media/attractions-splice-spp-674x446/07/c2/ab/de.jpg") no-repeat;
+    background: url("https://uixsupply.co/wp-content/uploads/edd/2019/07/cafe-illustration.png") no-repeat;
     background-size: cover;
     background-position: center;
 }
+
+.login-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .input_field {
+    width: 100%;
+  }

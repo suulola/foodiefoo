@@ -1,0 +1,21 @@
+#dashboard {
+    height: 91%;
+    width: 100%;
+}
+
+#dash_content {
+    max-height:  91%; 
+    overflow-x: hidden; 
+    overflow-x: auto; 
+}
+
+.text-small {
+    font-size: 9px;
+    font-weight: 100;
+}
+
+.title-text {
+    font-size: 15px;
+    font-weight: 100;
+    color: rgb(64, 64, 235);
+}

@@ -1,3 +1,4 @@
+import { AuthService } from './services/auth.service';
 import { Component } from '@angular/core';
 import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 import { NavigationStart, NavigationEnd, NavigationError, NavigationCancel, Router, Event } from '@angular/router';
@@ -9,6 +10,7 @@ import { NavigationStart, NavigationEnd, NavigationError, NavigationCancel, Rout
 })
 export class AppComponent {
   title = 'Food App';
+  loggedIn: boolean;
 
   private navigationInterceptor(event: Event): void {
     if(event instanceof NavigationStart) {
@@ -26,8 +28,10 @@ export class AppComponent {
   }
   constructor(
     private loadingBar: SlimLoadingBarService,
-    private router: Router
+    private router: Router,
+    private authService : AuthService
     ) {
+      this.loggedIn = this.authService.isUserLoggedIn;
       this.router.events.subscribe((event: Event) => {
         this.navigationInterceptor(event);
       })

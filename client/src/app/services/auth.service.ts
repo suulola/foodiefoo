@@ -7,11 +7,16 @@ import {map} from "rxjs/operators"
 })
 export class AuthService {
   url: string = ``;
+  isUserLoggedIn: boolean = false;
 
-constructor(private http: HttpClient) {  }
+constructor(
+  private http: HttpClient,
+  
+  ) {  }
 
 loginUser(username, password) {
-  return new User()
+  this.isUserLoggedIn = true;
+  // return new User()
   // const user: User = 
   // return this.http.post<any>(this.url, {
   //   username, password    

@@ -1,3 +1,31 @@
-<p>
-  dashboard works!
-</p>
+<div id="dashboard" class="row m-0 p-0">
+  <div class="col-6 bg-primary d-flex align-items-center justify-content-center">
+    <img 
+    src="../../../../assets/users.svg" 
+    width="100%"  alt="">
+  </div>
+  <div id="dash_content" class="col-6 p-3">
+    <h1 class="lead">Welcome {{username}}</h1>
+    <div class="row justify-content-around">
+      <div *ngFor="let service of services" class="col mt-5 px-4">
+      <mat-card 
+      routerLink="/auth/food" 
+      class="justify-content-center ">
+          <h5 class="title-text">{{service.title}}</h5>
+          <img 
+          src="{{service.image}}" 
+          alt="food"
+          width="100px"
+          >
+        <p class="text-small">{{service.description}}</p>
+
+        </mat-card>
+      </div>
+     
+    </div>
+
+
+
+  </div>
+
+</div>

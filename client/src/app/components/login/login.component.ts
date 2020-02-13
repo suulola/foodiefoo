@@ -36,19 +36,19 @@ export class LoginComponent implements OnInit {
     ]),
     password: new FormControl('', [
       Validators.required,
-      Validators.min(6)
+      Validators.minLength(6)
     ])
   }
 
-  login = () =>  {
+  login = async () =>  {
     let data = new FormData();
     data.append('email', this.email);
     data.append('password', this.password);
 
+   await this.authService.loginUser(this.email, this.password)
     this.router.navigate(['auth/dash'])
     
     console.log("hi")
-    this.authService.loginUser(this.email, this.password)
 
     
     console.log(data)
