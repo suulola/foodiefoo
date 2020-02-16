@@ -5,6 +5,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule, MatGridListModule, MatButtonModule, MatDialogModule } from '@angular/material';
+import { HoverDirective } from 'src/app/directive/hover.directive';
 
 @NgModule({
   
@@ -22,7 +23,8 @@ import { MatCardModule, MatGridListModule, MatButtonModule, MatDialogModule } fr
   declarations: [
     DashboardComponent, 
     FoodComponent,
-    ModalComponent
+    ModalComponent,
+    HoverDirective
   ],
   entryComponents: [
     ModalComponent
