@@ -1,10 +1,7 @@
 package com.suulola.order.security.jwt;
 
-import com.suulola.order.model.Role;
-import com.suulola.order.service.UserService;
+import com.suulola.order.service.CustomUserService;
 import io.jsonwebtoken.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,19 +9,15 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Base64;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 @Component
 public class JwtUtils {
-    // does majorly three things
-    //1. generate a JWT from username, date, expiration, secret
-    //2. get username from JWT
-    //3. validate a JWT
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(JwtUtils.class);
+//    private static final Logger LOGGER = LoggerFactory.getLogger(JwtUtils.class);
 
     @Value("${jwt.secret}")
     private String jwtSecret;
@@ -32,23 +25,26 @@ public class JwtUtils {
     @Value("${jwt.expiration}") // 1 hour
     private int jwtExpirationMs = 3600000;
 
-    @Autowired
-    private UserService userService;
+    private String secretKey;
 
+    @Autowired
+    private CustomUserService userService;
+
+    @PostConstruct
     protected void init() {
-        jwtSecret = Base64.getEncoder().encodeToString(jwtSecret.getBytes());
+        secretKey = Base64.getEncoder().encodeToString(jwtSecret.getBytes());
     }
 
-    public String createToken(String username, Set<Role> set) {
+    public String createToken(String username, List<String> roles) {
         Claims claims = Jwts.claims().setSubject(username);
-        claims.put("roles", set);
+        claims.put("roles", roles);
         Date now = new Date();
         Date validity = new Date(now.getTime() + jwtExpirationMs);
         return Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(now)
                 .setExpiration(validity)
-                .signWith(SignatureAlgorithm.HS256, jwtSecret)
+                .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
     }
 
@@ -78,7 +74,7 @@ public class JwtUtils {
 
     public String getUsername(String token) {
         return Jwts.parser()
-                .setSigningKey(jwtSecret)
+                .setSigningKey(secretKey)
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
@@ -95,25 +91,26 @@ public class JwtUtils {
 
 
     public boolean validateJwtToken(String authToken) {
+
         try {
-            Jwts.parser()
-                    .setSigningKey(jwtSecret)
+            Jws<Claims> claims = Jwts.parser()
+                    .setSigningKey(secretKey)
                     .parseClaimsJws(authToken);
+
+            if(claims.getBody().getExpiration().before(new Date())) {
+                return false;
+            }
             return true;
+
         } catch (ExpiredJwtException e) {
-            LOGGER.error("Invalid JWT signature: {} ", e.getMessage());
             e.printStackTrace();
         } catch (UnsupportedJwtException e) {
-            LOGGER.error("Invalid JWT signature: {} ", e.getMessage());
             e.printStackTrace();
         } catch (MalformedJwtException e) {
-            LOGGER.error("Invalid JWT signature: {} ", e.getMessage());
             e.printStackTrace();
         } catch (SignatureException e) {
-            LOGGER.error("Invalid JWT signature: {} ", e.getMessage());
             e.printStackTrace();
         } catch (IllegalArgumentException e) {
-            LOGGER.error("Invalid JWT signature: {} ", e.getMessage());
             e.printStackTrace();
         }
         return false;

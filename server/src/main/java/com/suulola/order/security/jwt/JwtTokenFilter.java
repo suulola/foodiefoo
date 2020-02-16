@@ -12,7 +12,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-@Component
+
 public class JwtTokenFilter extends GenericFilterBean {
 
     private JwtUtils jwtUtils;
@@ -31,7 +31,6 @@ public class JwtTokenFilter extends GenericFilterBean {
         if(token != null && jwtUtils.validateJwtToken(token)) {
             Authentication auth = token != null ? jwtUtils.getAuthentication(token) : null;
             SecurityContextHolder.getContext().setAuthentication(auth);
-
         }
         filterChain.doFilter(request, response);
     }
