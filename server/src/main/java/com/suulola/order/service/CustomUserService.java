@@ -17,8 +17,6 @@ public class CustomUserService implements UserDetailsService {
        this.userRepo = userRepo;
    }
 
-
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return this.userRepo.findByUsername(username)

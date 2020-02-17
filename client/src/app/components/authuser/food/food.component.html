@@ -1,7 +1,7 @@
 <div class="py-2 bg-primary mx-3 rounded mt-3">
   <h4 class="font-weight-light mx-5  text-white">FOOD</h4>
 </div>
-<div class="row m-0 p-0 ">
+<div class="row m-0 p-0 mr-20 ">
 
   <div  *ngFor="let item of allFood" class="col-sm-6 col-md-4 col-lg-3 my-3 ">
       <mat-card appHover  >
@@ -17,10 +17,13 @@
         <s class="text-muted mr-4">{{item.oldprice}}</s>
       <p class="font-weight-bold text-primary">{{item.price}}</p>
       </div>
-      <button mat-fab color="primary" (click)="registerOrder()" >Order</button>
+      <button mat-fab color="primary" (click)="registerOrder(item)" >Order</button>
      </div>
       </mat-card-content>
       </mat-card>
+</div>
+<div id="orders">
+  <app-orderlist [orderedItems]="selectedItem" ></app-orderlist>
 </div>
 </div>
 

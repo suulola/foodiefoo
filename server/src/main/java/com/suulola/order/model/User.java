@@ -30,21 +30,32 @@ public class User implements UserDetails {
     private Long id;
 
     @NotEmpty
+    @Column(name = "username", unique = true)
     private String username;
 
     @NotEmpty
     private String password;
 
+    @NotEmpty
+    private String fullname;
+
+    @NotEmpty
+    private String email;
+
+    @NotEmpty
+    private String phoneno;
+
+    @NotEmpty
+    private String bestfood;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
     private List<String> roles = new ArrayList<>();
 
+    @OneToMany(targetEntity = Order.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "userId", referencedColumnName = "id", insertable = false, updatable = false)
 
-
-
-
-//    private List<Order> orders;
+    private List<Order> orders;
 
 
     public Long getId() {
@@ -106,7 +117,19 @@ public class User implements UserDetails {
         return roles;
     }
 
-//    public List<Order> getOrders() {
-//        return orders;
-//    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", fullname='" + fullname + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneno='" + phoneno + '\'' +
+                ", bestfood='" + bestfood + '\'' +
+                ", roles=" + roles +
+                ", orders=" + orders +
+                '}';
+    }
 }

@@ -23,7 +23,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         this.jwtUtils = jwtUtils;
     }
 
-
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -44,7 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/auth/signup").permitAll()
                 .antMatchers("/auth/hello").permitAll()
                 .antMatchers("/auth/signin").permitAll()
-                .antMatchers(HttpMethod.GET, "/orders/**").permitAll()
+//                .antMatchers(HttpMethod.GET, "/orders/**").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/orders/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()

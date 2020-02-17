@@ -8,7 +8,7 @@ class="container-fluid m-0 p-0  d-flex justify-content-center align-items-center
       </div>
       <div  class="col-4">
         <form 
-        (ngSubmit)="register()"
+        (ngSubmit)="register($event)"
         class="login-form bg-white p-5 rounded">
 
         <mat-form-field 
@@ -20,6 +20,18 @@ class="container-fluid m-0 p-0  d-flex justify-content-center align-items-center
           >
           <mat-error *ngIf="validation.name.hasError('required')">
             Name is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field 
+        class="input_field">
+          <input 
+          matInput
+          placeholder="Username" 
+          [formControl]="validation.username"
+          >
+          <mat-error *ngIf="validation.username.hasError('required')">
+            Username is <strong>required</strong>
           </mat-error>
         </mat-form-field>
 
@@ -83,9 +95,9 @@ class="container-fluid m-0 p-0  d-flex justify-content-center align-items-center
           <mat-form-field class="input_field">
             <input 
             matInput  
-            placeholder="Password"
+            placeholder="Confirm Password"
             [type]="c_hide ? 'password' : 'text'"
-            [formControl]="validation.password"
+            [formControl]="validation.cpassword"
             >
             <button
             style="background-color: transparent; border: 0;" 

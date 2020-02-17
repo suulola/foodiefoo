@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @RestController
+@CrossOrigin()
 @RequestMapping("/auth")
 public class AuthController {
 
@@ -91,18 +92,15 @@ public class AuthController {
     public ResponseEntity login(@RequestBody AuthRequest data) {
 
         try {
-            System.out.println("kicking and alive");
             String username = data.getUsername();
             System.out.println(username);
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, data.getPassword()));
-            System.out.println("user authenticated");
             String token = jwtUtils.createToken(username, this.userRepo.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username " + username + "not found")).getRoles());
-            System.out.println("token created");
 
             Map<Object, Object> model = new HashMap<>();
             model.put("username", username);
+            model.put("expiresIn", jwtUtils.getJwtExpirationMs());
             model.put("token", token);
-            System.out.println("hi");
             return ResponseEntity.ok().body(model);
         } catch (AuthenticationException e) {
             System.out.println("error");

@@ -1,3 +1,4 @@
+import { AuthService } from './../../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  username: string = "Suulola";
+  username: string = "Anon";
 
   services: any =  [
     {
@@ -22,9 +23,22 @@ export class DashboardComponent implements OnInit {
     {title: "Others", image: "https://www.flaticon.com/premium-icon/icons/svg/1926/1926960.svg", description: "Eat the best food to your satisfaction"},
   ]
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
+    var state = localStorage.getItem("data")
+    if(state) {
+      console.log(state)
+      const parsedData = JSON.parse(state);
+
+      this.username = parsedData.response.username;
+
+
+    }
+  }
+
+  fetchOrders() {
+    this.authService.fetchAllOrders()
   }
 
 }

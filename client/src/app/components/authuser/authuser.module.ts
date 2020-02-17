@@ -1,3 +1,4 @@
+import { OrderlistComponent } from './../sharedcomponents/orderlist/orderlist.component';
 import { ModalComponent } from './../sharedcomponents/modal/modal.component';
 import { FoodComponent } from './food/food.component';
 import { RouterModule } from '@angular/router';
@@ -24,7 +25,8 @@ import { HoverDirective } from 'src/app/directive/hover.directive';
     DashboardComponent, 
     FoodComponent,
     ModalComponent,
-    HoverDirective
+    HoverDirective,
+    OrderlistComponent
   ],
   entryComponents: [
     ModalComponent

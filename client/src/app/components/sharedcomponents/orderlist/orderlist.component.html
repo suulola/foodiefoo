@@ -1,0 +1,20 @@
+<div class="card text-center">
+  <div class="card-header d-none d-sm-block">
+    All Orders
+  </div>
+  <div id="orderlist" class="d-none d-sm-block card-body">
+    <h5 class="card-title d-none d-lg-block">Special title treatment</h5>
+    <!-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a> -->
+    <ul  *ngFor="let item of orderedItems" class=" list-group list-group-flush">
+    <li class="list-group-item d-flex justify-content-between"> 
+      <span>{{item.title}}</span>
+      <span class="text-muted">{{item.price}}</span>
+    </li>
+    </ul>
+  </div>
+  <div class="card-footer text-muted d-flex justify-content-between align-items-center">
+  <p>  Total Orders: {{orderedItems.length}}</p>
+  <button class="btn btn-primary">Checkout</button>
+  </div>
+</div>

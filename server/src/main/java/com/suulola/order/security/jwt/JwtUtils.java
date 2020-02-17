@@ -35,6 +35,10 @@ public class JwtUtils {
         secretKey = Base64.getEncoder().encodeToString(jwtSecret.getBytes());
     }
 
+    public int getJwtExpirationMs() {
+        return jwtExpirationMs;
+    }
+
     public String createToken(String username, List<String> roles) {
         Claims claims = Jwts.claims().setSubject(username);
         claims.put("roles", roles);

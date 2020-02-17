@@ -13,51 +13,61 @@ export class FoodComponent implements OnInit {
 
   ngOnInit() {}
 
+  selectedItem: any = [
+    { 
+      title: "Rice and Beans", 
+      price: 3000, 
+      image: "https://www.goya.com/media/4027/pink-beans-and-rice1.jpg?quality=80",
+      oldprice: 5000,
+      desc: "West African Rice and Beans",    
+    }
+  ]
+
   allFood = [
     { 
-      title: "Rice and Beans", 
+      title: "Beans", 
       price: 3000, 
       image: "https://www.goya.com/media/4027/pink-beans-and-rice1.jpg?quality=80",
       oldprice: 5000,
       desc: "West African Rice and Beans",    
     },
     { 
-      title: "Rice and Beans", 
+      title: "Rice", 
       price: 3000, 
       image: "https://www.goya.com/media/4027/pink-beans-and-rice1.jpg?quality=80",
       oldprice: 5000,
       desc: "West African Rice and Beans",    
     },
     { 
-      title: "Rice and Beans", 
+      title: "Yam", 
       price: 3000, 
       image: "https://www.goya.com/media/4027/pink-beans-and-rice1.jpg?quality=80",
       oldprice: 5000,
       desc: "West African Rice and Beans",    
     },
     { 
-      title: "Rice and Beans", 
+      title: "Cassava", 
       price: 3000, 
       image: "https://www.goya.com/media/4027/pink-beans-and-rice1.jpg?quality=80",
       oldprice: 5000,
       desc: "West African Rice and Beans",    
     },
     { 
-      title: "Rice and Beans", 
+      title: "Honey", 
       price: 3000, 
       image: "https://www.goya.com/media/4027/pink-beans-and-rice1.jpg?quality=80",
       oldprice: 5000,
       desc: "West African Rice and Beans",    
     },
     { 
-      title: "Rice and Beans", 
+      title: "Others", 
       price: 3000, 
       image: "https://www.goya.com/media/4027/pink-beans-and-rice1.jpg?quality=80",
       oldprice: 5000,
       desc: "West African Rice and Beans",    
     },
     { 
-      title: "Rice and Beans", 
+      title: "and Beans", 
       price: 3000, 
       image: "https://www.goya.com/media/4027/pink-beans-and-rice1.jpg?quality=80",
       oldprice: 5000,
@@ -186,7 +196,10 @@ export class FoodComponent implements OnInit {
 
   ]
 
-  registerOrder(): void {
+  registerOrder(item: any): void {
+    console.log(item)
+    this.selectedItem.push(item);
+    console.log(this.selectedItem)
     console.log("hadfsl")
     const dialogRef = this.dialog.open(ModalComponent)
 

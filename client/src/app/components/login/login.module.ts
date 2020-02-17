@@ -1,3 +1,4 @@
+import { LoginstateDirective } from './../../directive/loginstate.directive';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -19,6 +20,9 @@ import { MatFormFieldModule, MatInputModule, MatIconModule } from '@angular/mate
     ReactiveFormsModule,
 
   ],
-  declarations: [LoginRoutes.components]
+  declarations: [
+    LoginRoutes.components,
+    LoginstateDirective
+  ]
 })
 export class LoginModule { }

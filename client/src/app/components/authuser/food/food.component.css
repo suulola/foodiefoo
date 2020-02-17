@@ -1,3 +1,16 @@
 mat-grid-tile {
     background: lightblue;
   }
+
+.mr-20 {
+  margin-right: 20% !important;
+}
+
+#orders{
+  position: fixed;
+  right: 0;
+  top: 30%;
+  width: 20%;
+  
+
+}

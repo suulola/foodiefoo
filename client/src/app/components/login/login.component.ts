@@ -16,56 +16,56 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   imgUrl : String = "https://www.graphicsprings.com/filestorage/stencils/58cd11a3bb897bb7e2ed6de306ce1b69.png?width=500&height=500";
 
+  form: FormGroup;
+
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
-  ) { }
+  ) { 
+    this.form = this.formBuilder.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    })
+  }
 
-  ngOnInit() {  }
+  ngOnInit() { 
+    var state = localStorage.getItem("userLoggedIn");
+    
+    if(state) {
+      console.log(state)
+      return this.router.navigate(["/auth/dash"])
+    }
+   }
 
   hide = true;
-  email: any;
-  password: any;
 
-  validation = {
-    email: new FormControl('', [
-      Validators.required,
-      Validators.email
-    ]),
-    password: new FormControl('', [
-      Validators.required,
-      Validators.minLength(6)
-    ])
-  }
+
 
   login = async () =>  {
-    let data = new FormData();
-    data.append('email', this.email);
-    data.append('password', this.password);
 
-   await this.authService.loginUser(this.email, this.password)
-    this.router.navigate(['auth/dash'])
-    
-    console.log("hi")
+    const data = this.form.value;
 
-    
-    console.log(data)
-    console.log("hd")
+    console.log("data is", data)
+    console.log("form validation", this.form)
+
+    if(!this.form.valid) {
+      alert("something is wrong")
+      return;
+    }
+
+      const response = await this.authService.loginUser(data);
+      console.log(response)
+      if(response.response != null) {
+        // this.authService.loginStatus.emit(true)
+        this.authService.loginState2.next(true);
+        this.form.reset();
+        await this.authService.setUserInfo(response);
+        this.router.navigate(['auth/dash'])
+      }
+
+
   }
-
-  // loginValidation: FormGroup = new FormGroup({
-  //   email: new FormControl('', [
-  //     Validators.email,
-  //     Validators.required
-  //   ]),
-  //   password: new FormControl('', [
-  //     Validators.required,
-  //     Validators.min(3)
-  //   ])
-  // })
-
-
 
 }
