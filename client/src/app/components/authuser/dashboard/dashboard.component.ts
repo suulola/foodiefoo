@@ -1,5 +1,6 @@
 import { AuthService } from './../../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
+import { OrdersService } from 'src/app/services/orders.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,7 +13,10 @@ export class DashboardComponent implements OnInit {
 
   services: any =  []
 
-  constructor(private authService: AuthService) { }
+  constructor(
+    private authService: AuthService,
+    private orderService: OrdersService
+    ) { }
 
   ngOnInit() {
     var state = sessionStorage.getItem("data")

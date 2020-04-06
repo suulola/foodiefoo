@@ -19,9 +19,9 @@ export class AdminboardComponent implements OnInit {
       'food': new FormGroup({
         'foodName': new FormControl(null, [Validators.required, this.forbiddenItems.bind(this)]),
         'foodDesc': new FormControl(null),
-        'imageUrl': new FormControl(null, [Validators.required]),
-        'actualPrice': new FormControl(null, [Validators.required]),
-        'promoPrice': new FormControl(null, [Validators.required]),
+        'imageUrl': new FormControl(null, [Validators.required]), // regex pattern for url
+        'actualPrice': new FormControl(null, [Validators.required, Validators.pattern('[0-9]*')]),
+        'promoPrice': new FormControl(null, [Validators.required, Validators.pattern('[0-9]*')]),
       }),
       'pickUpMode': new FormControl('pickup onsite'),
       'ingredients': new FormArray([])
@@ -37,7 +37,7 @@ export class AdminboardComponent implements OnInit {
     //     'actualPrice': "Rice",
     //     'promoPrice': "Rice",
     //   },
-    //   'pickUpMode': 'delievery',
+    //   'pickUpMode': 'delivery',
     //   'ingredients': [],
 
     // })
@@ -55,12 +55,18 @@ export class AdminboardComponent implements OnInit {
     (<FormArray>this.addFoodForm.get("ingredients")).push(control)
   }
 
-  submitFood() {
+  async submitFood() {
     console.log("hi")
-    this.orderService.fetchAllOrders()
-    // console.log(this.addFoodForm)
-    // console.log(this.addFoodForm.get('food.foodName'))
-    // this.addFoodForm.reset()
+
+   const submittedForm = this.addFoodForm.value;
+  const submission = await this.orderService.submitOrder(submittedForm.food);
+  console.log(submission)
+  if(submission['responseCode'] == "00") {
+    alert(submission['responseMessage']) 
+    this.addFoodForm.reset()
+  }else {
+    alert("Failed to submit. Please check console and try again!!")
+  }
   }
 
 }

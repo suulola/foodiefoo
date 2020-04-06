@@ -5,17 +5,16 @@
 
   <div  *ngFor="let item of allFood" class="col-sm-6 col-md-4 col-lg-3 my-3 ">
       <mat-card appHover  >
-      <img
-      
+      <img      
       mat-card-image
-      [src]="item.image" 
-      alt="photo of adfda">
+      [src]="item.imageUrl" 
+      [alt]="'photo of ' + item.foodName" >
       <mat-card-content>
-      <p>{{item.title}}</p>
+      <p>{{item.foodName}}</p>
      <div class="d-flex justify-content-between align-items-baseline">
       <div class="d-flex">
-        <s class="text-muted mr-4">{{item.oldprice}}</s>
-      <p class="font-weight-bold text-primary">{{item.price}}</p>
+        <s class="text-muted mr-4">{{item.actualPrice}}</s>
+      <p class="font-weight-bold text-primary">{{item.promoPrice}}</p>
       </div>
       <button mat-fab color="primary" (click)="registerOrder(item)" >Order</button>
      </div>

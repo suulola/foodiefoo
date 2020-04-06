@@ -1,6 +1,6 @@
-<div class="admin-board">
-  <h5 class="mx-5 mt-3">Add Food</h5>
-  <form [formGroup]="addFoodForm" (ngSubmit)="submitFood()" class="login-form bg-white px-5 rounded">
+<div class="row admin-board">
+  <h5 class="col-12 mx-5 mt-3">Add Food</h5>
+  <form [formGroup]="addFoodForm" (ngSubmit)="submitFood()" class="login-form bg-white px-5 rounded col-sm-10 col-md-6">
     <div formGroupName="food">
       <mat-form-field class="input_field">
         <input matInput placeholder="Food Name" formControlName="foodName">
@@ -22,7 +22,7 @@
 
       <mat-form-field class="input_field">
         <input matInput placeholder="Insert Image Url while our engineers are working on upload image functionality"
-          formControlName="imageUrl">
+          formControlName="imageUrl" type="url">
         <mat-error *ngIf="!addFoodForm.get('food.imageUrl').valid && addFoodForm.get('food.imageUrl').touched">
           Image url is <strong>required</strong>
         </mat-error>
@@ -31,14 +31,14 @@
       <mat-form-field class="input_field">
         <input matInput placeholder="promo Price" formControlName="actualPrice">
         <mat-error *ngIf="!addFoodForm.get('food.actualPrice').valid && addFoodForm.get('food.actualPrice').touched">
-          Actual Price is <strong>required</strong>
+          Actual Price is <strong>required</strong> and must be a <strong>number</strong>
         </mat-error>
       </mat-form-field>
 
       <mat-form-field class="input_field">
         <input matInput placeholder="Promo Price" formControlName="promoPrice">
         <mat-error *ngIf="!addFoodForm.get('food.promoPrice').valid && addFoodForm.get('food.promoPrice').touched">
-          Promo Price is <strong>required</strong>
+          Promo Price is <strong>required</strong> and must be a <strong>number</strong>
         </mat-error>
       </mat-form-field>
 
@@ -60,7 +60,7 @@
       <h3 class="mb-3">Ingredients</h3>
       <div class="form-group" *ngFor="let ingredient of addFoodForm.get('ingredients').controls;  let i = index">
         <mat-form-field class="input_field">
-          <input matInput placeholder="Insert Ingredient" [formControlName]>
+          <input matInput placeholder="Insert Ingredient" >
         </mat-form-field>
       </div>
       <button class="btn btn-primary mt-4" type="button" (click)="onAddIngredient()">Add Ingredient</button>
