@@ -1,0 +1,80 @@
+<div class="admin-board">
+  <h5 class="mx-5 mt-3">Add Food</h5>
+  <form [formGroup]="addFoodForm" (ngSubmit)="submitFood()" class="login-form bg-white px-5 rounded">
+    <div formGroupName="food">
+      <mat-form-field class="input_field">
+        <input matInput placeholder="Food Name" formControlName="foodName">
+        <mat-error *ngIf="!addFoodForm.get('food.foodName').valid && addFoodForm.get('food.foodName').touched   &&  !addFoodForm.get('food.foodName').errors['foodItemIsForbidden']"     >
+          Food Name is <strong>required</strong>
+        </mat-error>
+        <mat-error
+          *ngIf="!addFoodForm.get('food.foodName').valid && addFoodForm.get('food.foodName').touched &&  addFoodForm.get('food.foodName').errors['foodItemIsForbidden']"   >
+          Food is <strong>blacklisted</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="input_field">
+        <input matInput placeholder="Food Description" formControlName="foodDesc">
+        <mat-error *ngIf="!addFoodForm.get('food.foodDesc').valid && addFoodForm.get('food.foodDesc').touched">
+          Food Description is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="input_field">
+        <input matInput placeholder="Insert Image Url while our engineers are working on upload image functionality"
+          formControlName="imageUrl">
+        <mat-error *ngIf="!addFoodForm.get('food.imageUrl').valid && addFoodForm.get('food.imageUrl').touched">
+          Image url is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="input_field">
+        <input matInput placeholder="promo Price" formControlName="actualPrice">
+        <mat-error *ngIf="!addFoodForm.get('food.actualPrice').valid && addFoodForm.get('food.actualPrice').touched">
+          Actual Price is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="input_field">
+        <input matInput placeholder="Promo Price" formControlName="promoPrice">
+        <mat-error *ngIf="!addFoodForm.get('food.promoPrice').valid && addFoodForm.get('food.promoPrice').touched">
+          Promo Price is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+    </div>
+
+    <div class="d-flex jusify-content-center align-items-center">
+      <label id="example-radio-group-label" class="mr-5">Mode of delivery of food</label>
+      <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group">
+        <mat-radio-button class="mr-2" *ngFor="let mode of modeOfCollection" [value]="mode">
+          {{mode}}
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+
+
+
+    <div formArrayName="ingredients">
+      <h3 class="mb-3">Ingredients</h3>
+      <div class="form-group" *ngFor="let ingredient of addFoodForm.get('ingredients').controls;  let i = index">
+        <mat-form-field class="input_field">
+          <input matInput placeholder="Insert Ingredient" [formControlName]>
+        </mat-form-field>
+      </div>
+      <button class="btn btn-primary mt-4" type="button" (click)="onAddIngredient()">Add Ingredient</button>
+      <p class="small">You can add more ingredients by clicking the Add Ingredient button</p>
+
+
+
+
+    </div>
+
+    <div class="w-100 d-flex justify-content-end">
+      <button class=" mt-3 btn btn-primary" mat-button>Submit</button>
+    </div>
+
+  </form>
+
+</div>

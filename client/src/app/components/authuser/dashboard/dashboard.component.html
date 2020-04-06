@@ -9,7 +9,7 @@
     <div class="row justify-content-around">
       <div *ngFor="let service of services" class="col mt-5 px-4">
       <mat-card 
-      routerLink="/auth/food" 
+      [routerLink]="service.url" 
       class="justify-content-center ">
           <h5 class="title-text">{{service.title}}</h5>
           <img 
@@ -21,9 +21,6 @@
 
         </mat-card>
       </div>
-
-      <button class="btn btn-primary" (click)="fetchOrders()"></button>
-
      
     </div>
     <hr>

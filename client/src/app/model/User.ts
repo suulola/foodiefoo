@@ -2,7 +2,7 @@
    username: string;
    password: string;
    roles?: string;
-   name?: string;
+   fullname?: string;
    email?: string;
    phoneno?: string;
    bestfood?: string;

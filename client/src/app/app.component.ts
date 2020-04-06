@@ -48,7 +48,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.isLoggedIn = status;
       })
 
-      var state = localStorage.getItem("userLoggedIn");
+      var state = sessionStorage.getItem("userLoggedIn");
 
 
       if(state) {
@@ -63,14 +63,11 @@ export class AppComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
       this.activatedSub.unsubscribe();
+
     }
 
     logout() {
-      localStorage.removeItem("userLoggedIn");
-      localStorage.removeItem("data");
-
-      this.authService.loginState2.next(false)
-      this.router.navigate(["/"])
+      this.authService.logout()
     }
 
 

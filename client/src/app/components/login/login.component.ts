@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() { 
-    var state = localStorage.getItem("userLoggedIn");
+    var state = sessionStorage.getItem("userLoggedIn");
     
     if(state) {
       console.log(state)
@@ -44,6 +44,7 @@ export class LoginComponent implements OnInit {
 
 
   login = async () =>  {
+    
 
     const data = this.form.value;
 
@@ -63,7 +64,12 @@ export class LoginComponent implements OnInit {
         this.form.reset();
         await this.authService.setUserInfo(response);
         this.router.navigate(['auth/dash'])
-      }
+      } else if(response.error != null) {
+        alert("Wrong credentials. Please try again")
+
+      } 
+
+
 
 
   }

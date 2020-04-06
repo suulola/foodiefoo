@@ -16,9 +16,9 @@ class="container-fluid m-0 p-0  d-flex justify-content-center align-items-center
           <input 
           matInput
           placeholder="Full Name" 
-          [formControl]="validation.name"
+          [formControl]="validation.fullname"
           >
-          <mat-error *ngIf="validation.name.hasError('required')">
+          <mat-error *ngIf="validation.fullname.hasError('required')">
             Name is <strong>required</strong>
           </mat-error>
         </mat-form-field>

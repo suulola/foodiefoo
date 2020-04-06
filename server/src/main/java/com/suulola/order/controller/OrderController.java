@@ -1,6 +1,5 @@
 package com.suulola.order.controller;
 
-import com.suulola.order.controller.dto.AuthRequest;
 import com.suulola.order.controller.dto.Response;
 import com.suulola.order.model.Order;
 import com.suulola.order.service.OrderService;
@@ -14,7 +13,7 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @GetMapping("hello")
+    @GetMapping("/hello")
     public String helloWorld() {
         return "Hello World";
     }

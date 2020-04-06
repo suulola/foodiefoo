@@ -21,13 +21,12 @@ export class RegisterComponent implements OnInit {
   validation = {
     username: new FormControl('', [
       Validators.required,
-      Validators.email
     ]),
     email: new FormControl('', [
       Validators.required,
       Validators.email
     ]),
-    name: new FormControl('', [
+    fullname: new FormControl('', [
       Validators.required
     ]),
     password: new FormControl('', [
@@ -55,7 +54,7 @@ export class RegisterComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    var state = localStorage.getItem("userLoggedIn");
+    var state = sessionStorage.getItem("userLoggedIn");
     
     if(state) {
       console.log(state)
@@ -67,7 +66,7 @@ export class RegisterComponent implements OnInit {
   const request:  User = {
     username: this.validation.username.value,
     email: this.validation.email.value,
-    name: this.validation.name.value,
+    fullname: this.validation.fullname.value,
     password: this.validation.password.value,
     phoneno: this.validation.phoneno.value,
     bestfood: this.validation.bestfood.value,

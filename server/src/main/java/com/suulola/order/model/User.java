@@ -34,13 +34,13 @@ public class User implements UserDetails {
     private String username;
 
     @NotEmpty
-    private String password;
+    private String email;
 
     @NotEmpty
     private String fullname;
 
     @NotEmpty
-    private String email;
+    private String password;
 
     @NotEmpty
     private String phoneno;
@@ -49,13 +49,12 @@ public class User implements UserDetails {
     private String bestfood;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @Builder.Default
+//    @Builder.Default
     private List<String> roles = new ArrayList<>();
 
-    @OneToMany(targetEntity = Order.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "userId", referencedColumnName = "id", insertable = false, updatable = false)
-
-    private List<Order> orders;
+    // @OneToMany(targetEntity = Order.class, cascade = CascadeType.ALL)
+    // @JoinColumn(name = "userId", referencedColumnName = "id", insertable = false, updatable = false)
+    // private List<Order> orders;
 
 
     public Long getId() {
@@ -117,6 +116,45 @@ public class User implements UserDetails {
         return roles;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
+    }
+
+    public String getPhoneno() {
+        return phoneno;
+    }
+
+    public void setPhoneno(String phoneno) {
+        this.phoneno = phoneno;
+    }
+
+    public String getBestfood() {
+        return bestfood;
+    }
+
+    public void setBestfood(String bestfood) {
+        this.bestfood = bestfood;
+    }
+
+    // public List<Order> getOrders() {
+    //     return orders;
+    // }
+
+    // public void setOrders(List<Order> orders) {
+    //     this.orders = orders;
+    // }
 
     @Override
     public String toString() {
@@ -129,7 +167,7 @@ public class User implements UserDetails {
                 ", phoneno='" + phoneno + '\'' +
                 ", bestfood='" + bestfood + '\'' +
                 ", roles=" + roles +
-                ", orders=" + orders +
+                // ", orders=" + orders +
                 '}';
     }
 }

@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.List;
 
 @Entity
 @Table(name = "orders")
@@ -18,55 +20,67 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class Order extends AbstractAuditableEntity<User, Long> implements Serializable {
 
-   private String foodContent;
-   private String orderDate;
-   private Boolean isFoodServed;
+   private String foodName;
+   private String foodDesc;
+   private String imageUrl;
+   private double actualPrice;
+   private double promoPrice;
+
+   // i don't know why the initialization below is throwing error
+//   private List<String> ingredients;
 
 
-   @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "userId", referencedColumnName = "id", insertable = false, updatable = false)
-    @JsonIgnore
-    private User user;
 
-    public String getFoodContent() {
-        return foodContent;
+     @ManyToOne(cascade = CascadeType.ALL)
+     @JoinColumn(name = "userId", referencedColumnName = "id", insertable = false, updatable = false)
+     private User user;
+
+
+    public String getFoodName() {
+        return foodName;
     }
 
-    public void setFoodContent(String foodContent) {
-        this.foodContent = foodContent;
+    public void setFoodName(String foodName) {
+        this.foodName = foodName;
     }
 
-    public String getOrderDate() {
-        return orderDate;
+    public String getFoodDesc() {
+        return foodDesc;
     }
 
-    public void setOrderDate(String orderDate) {
-        this.orderDate = orderDate;
+    public void setFoodDesc(String foodDesc) {
+        this.foodDesc = foodDesc;
     }
 
-    public Boolean getFoodServed() {
-        return isFoodServed;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setFoodServed(Boolean foodServed) {
-        isFoodServed = foodServed;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
-    public User getUser() {
-        return user;
+    public double getActualPrice() {
+        return actualPrice;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setActualPrice(double actualPrice) {
+        this.actualPrice = actualPrice;
     }
 
-    @Override
-    public String toString() {
-        return "Order{" +
-                "foodContent='" + foodContent + '\'' +
-                ", orderDate='" + orderDate + '\'' +
-                ", isFoodServed=" + isFoodServed +
-                ", user=" + user +
-                '}';
+    public double getPromoPrice() {
+        return promoPrice;
     }
+
+    public void setPromoPrice(double promoPrice) {
+        this.promoPrice = promoPrice;
+    }
+
+     public User getUser() {
+         return user;
+     }
+
+     public void setUser(User user) {
+         this.user = user;
+     }
 }

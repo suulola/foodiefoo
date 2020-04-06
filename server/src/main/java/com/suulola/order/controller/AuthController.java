@@ -67,6 +67,10 @@ public class AuthController {
             }
             User user = new User();
             user.setUsername(authRequest.getUsername());
+            user.setBestfood(authRequest.getBestfood());
+            user.setEmail(authRequest.getEmail());
+            user.setFullname(authRequest.getFullname());
+            user.setPhoneno(authRequest.getPhoneno());
             user.setPassword(passwordEncoder.encode(authRequest.getPassword()));
             user.setRoles(Arrays.asList(authRequest.getRoles()));
             this.userRepo.saveAndFlush(user);
@@ -93,12 +97,14 @@ public class AuthController {
 
         try {
             String username = data.getUsername();
-            System.out.println(username);
+            Optional<User> byUsername = this.userRepo.findByUsername(username);
+
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, data.getPassword()));
-            String token = jwtUtils.createToken(username, this.userRepo.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username " + username + "not found")).getRoles());
+            String token = jwtUtils.createToken(username, byUsername.orElseThrow(() -> new UsernameNotFoundException("Username " + username + "not found")).getRoles());
 
             Map<Object, Object> model = new HashMap<>();
             model.put("username", username);
+            model.put("roles", byUsername.get().getRoles());
             model.put("expiresIn", jwtUtils.getJwtExpirationMs());
             model.put("token", token);
             return ResponseEntity.ok().body(model);
