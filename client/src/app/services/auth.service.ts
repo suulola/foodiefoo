@@ -22,20 +22,21 @@ export class AuthService {
   loginState2 = new Subject<boolean>();
 
 
-  loginUrl: string = `http://localhost:8080/auth/signin`;
-  registerUrl: string = `http://localhost:8080/auth/signup`;
+  private loginUrl: string = `http://localhost:8080/auth/signin`;
+ private  registerUrl: string = `http://localhost:8080/auth/signup`;
   private tokenExpirationTimer: any;
 
 
 constructor(
   private http: HttpClient,
   private router: Router,  
+  
   ) {  }
 
   authenticatedRequestHeader: any = () => {
     const reqHeader = new Headers();
 
-    var state = sessionStorage.getItem("data")
+    let state = sessionStorage.getItem("data")
 
     if(!state) {
       return null;
@@ -84,6 +85,16 @@ async loginUser(user: User) {
  })
 
   return resp;
+}
+
+loginUsingHttpClient(user: User) {
+  this.http.post<any>(this.loginUrl, user, {withCredentials: true})
+  .pipe(
+    map(user => {
+      console.log(user)
+      return user;
+    })
+  )
 }
 
 
